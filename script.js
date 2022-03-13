@@ -30,7 +30,7 @@ document.querySelector(".check").addEventListener("click", function () {
   } else if (guess !== secretNumber) {
     // When guess is wrong
     if (score > 1) {
-      displayMessage(guess > secretNumber ? "📈 Too high!" : "📉 Too low!");
+      displayMessage(guess > secretNumber ? `${guess} is 📈 high!` : `${guess} is 📉 low!`);
       score--;
       document.querySelector(".score").textContent = score;
     } else {
