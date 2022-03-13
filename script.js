@@ -1,7 +1,7 @@
 "use strict";
 
 let secretNumber = Math.trunc(Math.random() * 20) + 1;
-let score = 20;
+let score = 50;
 let highscore = 0;
 
 const displayMessage = function (message) {
@@ -31,7 +31,7 @@ document.querySelector(".check").addEventListener("click", function () {
     // When guess is wrong
     if (score > 1) {
       displayMessage(guess > secretNumber ? `${guess} is 📈 high!` : `${guess} is 📉 low!`);
-      score--;
+      score-=10;
       document.querySelector(".score").textContent = score;
     } else {
       displayMessage("💥 You lost the game!");
@@ -41,7 +41,7 @@ document.querySelector(".check").addEventListener("click", function () {
 });
 
 document.querySelector(".again").addEventListener("click", function () {
-  score = 20;
+  score = 50;
   secretNumber = Math.trunc(Math.random() * 20) + 1;
 
   displayMessage("Start guessing...");
