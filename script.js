@@ -1,7 +1,7 @@
 "use strict";
 
-let secretNumber = Math.trunc(Math.random() * 20) + 1;
-let score = 50;
+let secretNumber = Math.trunc(Math.random() * 1000) + 1;
+let score = 100;
 let highscore = 0;
 
 const displayMessage = function (message) {
@@ -41,7 +41,7 @@ document.querySelector(".check").addEventListener("click", function () {
 
 document.querySelector(".again").addEventListener("click", function () {
   score = 50;
-  secretNumber = Math.trunc(Math.random() * 20) + 1;
+  secretNumber = Math.trunc(Math.random() * 1000) + 1;
 
   displayMessage("Start guessing...");
   document.querySelector(".score").textContent = score;

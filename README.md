@@ -6,8 +6,8 @@ The project is live here — *[Game-GuessTheNumber](https://game-guessthenumber.
 
 ## Working
 The game works as follows:
- - The score starts with `50` 
- - A random number is selected between between `1` and `20`
+ - The score starts with `100` 
+ - A random number is selected between between `1` and `1000`
  -  The user guesses a number
  -  If the guess is right, **the user wins the game**
  -  If the guess is wrong, **high** or **low** is displayed according to the random number and the guess
@@ -19,10 +19,10 @@ The game works as follows:
 ## Theory
 It is possible to guess the number in a maximum of 5 attempts. The logic for this is based on the *[Bisection Method](https://en.wikipedia.org/wiki/Bisection_method)*, which is also used in *[Binary Search](https://en.wikipedia.org/wiki/Binary_search_algorithm)*
 
-The range of possible numbers is between `1` and `20`, both inclusive. This gives us 20 consecutive numbers. By the divide and check approach, we can divide the possible numbers into two halves every time, checking which half the random number belongs in.
+The range of possible numbers is between `1` and `1000`, both inclusive. This gives us 1000 consecutive numbers. By the divide and check approach, we can divide the possible numbers into two halves every time, checking which half the random number belongs in.
 
 The maximum number of possible attempts to reach the number using this approach is:
-⌈ log<sub>2</sub>20 ⌉ = 5
+⌈ log<sub>2</sub>1000 ⌉ = 10
 
 
 ## Credits
