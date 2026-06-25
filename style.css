@@ -117,3 +117,30 @@ h1 {
 .label-score {
   margin-bottom: 2rem;
 }
+
+.optimal-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+  font-size: 1.6rem;
+  cursor: pointer;
+}
+
+.optimal-toggle input {
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+}
+
+.hint {
+  margin-top: 2rem;
+  padding: 1.5rem 2rem;
+  border: 3px solid #eee;
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+
+.hint.hidden {
+  display: none;
+}

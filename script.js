@@ -14,12 +14,20 @@ const numberEl = document.querySelector(".number");
 const guessEl = document.querySelector(".guess");
 const checkBtn = document.querySelector(".check");
 const againBtn = document.querySelector(".again");
+const optimalToggle = document.querySelector(".optimal");
+const hintEl = document.querySelector(".hint");
+const hintGuessEl = document.querySelector(".hint-guess");
+const hintMaxEl = document.querySelector(".hint-max");
 
 const randomNumber = () => Math.trunc(Math.random() * (MAX - MIN + 1)) + MIN;
 
 let secretNumber = randomNumber();
 let score = START_SCORE;
 let highscore = Number(localStorage.getItem("highscore")) || 0;
+
+// Feasible range the secret is known to lie in, narrowed by every guess.
+let low = MIN;
+let high = MAX;
 
 highscoreEl.textContent = highscore;
 
@@ -31,6 +39,25 @@ const setPlaying = function (playing) {
   checkBtn.disabled = !playing;
   guessEl.disabled = !playing;
 };
+
+// Optimal binary-search guess: midpoint of the feasible range. The guaranteed
+// worst-case guesses left to win a range of N candidates is ⌈log2(N + 1)⌉.
+const updateHint = function () {
+  if (!optimalToggle.checked) return;
+  if (low > high) {
+    hintGuessEl.textContent = "—";
+    hintMaxEl.textContent = "0";
+    return;
+  }
+  const count = high - low + 1;
+  hintGuessEl.textContent = Math.floor((low + high) / 2);
+  hintMaxEl.textContent = Math.ceil(Math.log2(count + 1));
+};
+
+optimalToggle.addEventListener("change", function () {
+  hintEl.classList.toggle("hidden", !optimalToggle.checked);
+  updateHint();
+});
 
 checkBtn.addEventListener("click", function () {
   const guess = Number(guessEl.value);
@@ -59,6 +86,11 @@ checkBtn.addEventListener("click", function () {
     return;
   }
 
+  // Narrow the feasible range from this guess's high/low feedback.
+  if (guess < secretNumber) low = Math.max(low, guess + 1);
+  else high = Math.min(high, guess - 1);
+  updateHint();
+
   score -= PENALTY;
   if (score <= 0) {
     score = 0;
@@ -73,12 +105,15 @@ checkBtn.addEventListener("click", function () {
 againBtn.addEventListener("click", function () {
   score = START_SCORE;
   secretNumber = randomNumber();
+  low = MIN;
+  high = MAX;
 
   displayMessage("Start guessing...");
   scoreEl.textContent = score;
   numberEl.textContent = "?";
   guessEl.value = "";
   setPlaying(true);
+  updateHint();
 
   document.body.style.backgroundColor = "#222";
   numberEl.style.width = "15rem";
