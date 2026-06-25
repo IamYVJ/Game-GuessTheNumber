@@ -2,19 +2,20 @@
 
 This is a simple implementation of *The Guessing Game*
 
-The project is live here — *[Game-GuessTheNumber](https://game-guessthenumber.herokuapp.com/)*
+The project is live here — *[Game-GuessTheNumber](https://iamyvj.github.io/Game-GuessTheNumber/)*
 
 ## Working
 The game works as follows:
- - The score starts with `100` 
- - A random number is selected between between `1` and `1000`
+ - The score starts with `100`
+ - A random number is selected between `1` and `1000`
  -  The user guesses a number
+ -  Guesses outside the `1`–`1000` range are rejected
  -  If the guess is right, **the user wins the game**
  -  If the guess is wrong, **high** or **low** is displayed according to the random number and the guess
- -  For every wrong guess, `10` is deducted from the score
- - If the score reaches 0 before the user can guess the right number, the game is **over**
+ -  For every wrong guess, `5` is deducted from the score, giving `20` attempts
+ - If the score reaches `0` before the user can guess the right number, the game is **over**
  - The user can play again by clicking **Again!**
- - A **High Score** record is maintained on the page
+ - A **High Score** record is maintained on the page and persists across sessions via `localStorage`
 
 ## Theory
 It is possible to guess the number in a maximum of 5 attempts. The logic for this is based on the *[Bisection Method](https://en.wikipedia.org/wiki/Bisection_method)*, which is also used in *[Binary Search](https://en.wikipedia.org/wiki/Binary_search_algorithm)*
@@ -23,6 +24,8 @@ The range of possible numbers is between `1` and `1000`, both inclusive. This gi
 
 The maximum number of possible attempts to reach the number using this approach is:
 ⌈ log<sub>2</sub>1000 ⌉ = 10
+
+The game allows `20` attempts (a `5`-point penalty out of `100`), which is double this worst case — so a player using the bisection method always has comfortable headroom to win.
 
 
 ## Credits
